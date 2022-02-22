@@ -8,12 +8,16 @@ import {
   Navbar,
   NavDropdown,
 } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
-    <Navbar bg="primary" expand="lg" variant="dark">
+    <Navbar expand="lg" variant="dark">
       <Container>
-        <Navbar.Brand href="#">Note Keeper</Navbar.Brand>
+        <Navbar.Brand>
+          <Link to="/">Note Keeper</Link>
+        </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav className="m-auto">
@@ -27,11 +31,20 @@ const Header = () => {
             </Form>
           </Nav>
           <Nav className="m-auto my-2 my-lg-0" style={{ maxHeight: "100px" }}>
-            <Nav.Link href="#action1">My Notes</Nav.Link>
+            <Nav.Link href="#action1">
+              <Link to="/mynotes">My Notes</Link>
+            </Nav.Link>
 
             <NavDropdown title="Vinay Kushwaha">
               <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">Logout</NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  localStorage.removeItem("userInfo");
+                  navigate("/");
+                }}
+              >
+                Logout
+              </NavDropdown.Item>
               <NavDropdown.Divider />
             </NavDropdown>
           </Nav>

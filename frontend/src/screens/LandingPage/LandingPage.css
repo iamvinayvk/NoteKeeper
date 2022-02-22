@@ -2,7 +2,8 @@
   min-height: 93vh;
   display: flex;
   align-items: center;
-  background-image: url("../../background1.jpg");
+  background-color: #222;
+  /* background-image: url("../../background1.jpg"); */
   background-position: center;
   background-size: cover;
 }
