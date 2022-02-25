@@ -1,7 +1,9 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { register } from "../../actions/userActions";
 import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import MainScreen from "../../components/MainScreen";
@@ -12,51 +14,34 @@ const RegisterScreen = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState(
+  const [message, setMessage] = useState(
     "#Problem - Sometimes Pic Default value is being uplaoded in the Database instead of the uploaded value due to the extra time taken by cloudinary the submitHandler is making is the POST request before the postDetails function has completed its fetch operation"
   );
-  const [isLoading, setLoading] = useState(false);
+
   const [confirmPassword, setConfirmPassword] = useState("");
   const [pic, setPic] = useState(
     "https://as1.ftcdn.net/v2/jpg/03/46/83/96/1000_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
   );
   const [picMessage, setPicMessage] = useState("");
 
-  const submitHandler = async (e) => {
-    setError("");
-    setMessage("");
-    setPicMessage("");
+  const dispatch = useDispatch();
+  const userRegister = useSelector((state) => state.userRegister);
 
+  const { loading, error, userInfo } = userRegister;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/mynotes");
+    }
+  }, [navigate, userInfo]);
+
+  const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setMessage("Passwords Do Not Match");
     } else {
-      setMessage("");
-      setLoading(true);
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
-        const { data } = await axios.post(
-          "/api/users/register",
-          {
-            name,
-            email,
-            password,
-            pic,
-          },
-          config
-        );
-        console.log(data);
-        localStorage.setItem("userInfo", JSON.stringify(data));
-      } catch (error) {
-        setLoading(false);
-        setError(error.response.data.message);
-      }
-      setLoading(false);
+      dispatch(register(name, email, password, confirmPassword, pic));
     }
   };
 
@@ -96,7 +81,7 @@ const RegisterScreen = () => {
       <div className="loginConatiner">
         {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
         {message && <ErrorMessage variant="danger">{message}</ErrorMessage>}
-        {isLoading && <Loading />}
+        {loading && <Loading />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="name">
             <Form.Label>Name</Form.Label>
