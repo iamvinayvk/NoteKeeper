@@ -35,18 +35,11 @@ const RegisterScreen = () => {
       navigate("/mynotes");
     }
   }, [navigate, userInfo]);
-
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      setMessage("Passwords Do Not Match");
-    } else {
-      dispatch(register(name, email, password, confirmPassword, pic));
-    }
-  };
-
   const postDetails = (pics) => {
-    if (!pics) {
+    if (
+      pics ===
+      "https://as1.ftcdn.net/v2/jpg/03/46/83/96/1000_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+    ) {
       return setPicMessage("Please Upload Picture");
     }
     setPicMessage(null);
@@ -73,6 +66,14 @@ const RegisterScreen = () => {
         });
     } else {
       return setPicMessage("Please Choose Correct Format!");
+    }
+  };
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      setMessage("Passwords Do Not Match");
+    } else {
+      dispatch(register(name, email, password, confirmPassword, pic));
     }
   };
 
