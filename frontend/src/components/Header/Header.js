@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   Container,
@@ -17,6 +17,7 @@ const Header = ({ setSearch }) => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
   const logoutHandler = () => {
     dispatch(logout());
     navigate("/");
@@ -47,7 +48,7 @@ const Header = ({ setSearch }) => {
               </Nav.Link>
 
               <NavDropdown title={`${userInfo?.name}`}>
-                <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
+                <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
                 <NavDropdown.Item onClick={logoutHandler}>
                   Logout
                 </NavDropdown.Item>
