@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon backend/server.js",
+    "start": "npm backend/server.js",
     "client": "npm start -C frontend",
     "dev": "concurrently \"npm start\" \"npm run client\"",
     "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
