@@ -39,7 +39,7 @@ const Header = ({ setSearch }) => {
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle />
-        <Navbar.Collapse className="d-flex justify-content-around align-items-center">
+        <Navbar.Collapse>
           {userInfo ? (
             <Nav className="m-auto w-50">
               <Form className="w-100 h-50">
@@ -75,7 +75,10 @@ const Header = ({ setSearch }) => {
               </NavDropdown>
             </Nav>
           ) : (
-            <Nav>
+            <Nav
+              className="w-100"
+              style={{ marginLeft: "70%", marginRight: 0 }}
+            >
               <Nav.Link href="#action1">
                 <Link to="/login">Login</Link>
               </Nav.Link>
