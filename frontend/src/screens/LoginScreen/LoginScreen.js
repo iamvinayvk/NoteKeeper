@@ -35,12 +35,12 @@ const LoginScreen = () => {
 
   return (
     <MainScreen title="LOGIN">
-      <div className="loginContainer">
+      <div className="loginContainer text-white">
         {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
         {loading && <Loading />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email Address</Form.Label>
+            <Form.Label className="text-white">Email Address</Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter Email"
@@ -57,7 +57,13 @@ const LoginScreen = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
-          <Button variant="info" type="submit" size="lg" className="my-2">
+          <Button
+            style={{ marginLeft: 10, marginBottom: 6 }}
+            size="lg"
+            variant="outline-dark"
+            type="submit"
+            className="my-2"
+          >
             Submit
           </Button>
         </Form>

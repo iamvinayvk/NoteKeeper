@@ -118,12 +118,12 @@ function SingleNote({ navigate }) {
               />
             </Form.Group>
             {loading && <Loading size={50} />}
-            <Button variant="primary" type="submit">
+            <Button variant="outline-primary" type="submit" className="my-2">
               Update Note
             </Button>
             <Button
-              className="mx-2"
-              variant="danger"
+              className="mx-2 my-2"
+              variant="outline-danger"
               onClick={() => deleteHandler(params.id)}
             >
               Delete Note

@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../actions/userActions";
+import logo from "../../logo.png";
 
 const Header = ({ setSearch }) => {
   const navigate = useNavigate();
@@ -23,33 +24,51 @@ const Header = ({ setSearch }) => {
     navigate("/");
   };
   return (
-    <Navbar expand="lg" variant="dark">
+    <Navbar expand="lg" variant="dark" bg="dark">
       <Container>
         <Navbar.Brand>
-          <Link to="/">Note Keeper</Link>
+          <Link to="/">
+            <img
+              style={{
+                width: 150,
+                height: 150,
+              }}
+              src={logo}
+              alt="logo"
+            />
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle />
-        <Navbar.Collapse>
-          <Nav className="m-auto">
-            <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </Form>
-          </Nav>
+        <Navbar.Collapse className="d-flex justify-content-around align-items-center">
+          {userInfo ? (
+            <Nav className="m-auto w-50">
+              <Form className="w-100 h-50">
+                <FormControl
+                  type="search"
+                  placeholder="Search"
+                  className="me-2"
+                  aria-label="Search"
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </Form>
+            </Nav>
+          ) : (
+            <div></div>
+          )}
           {userInfo ? (
             <Nav className="m-auto my-2 my-lg-0" style={{ maxHeight: "100px" }}>
-              <Nav.Link href="#action1">
+              <Nav.Link>
                 <Link to="/mynotes">My Notes</Link>
               </Nav.Link>
 
               <NavDropdown title={`${userInfo?.name}`}>
-                <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
-                <NavDropdown.Item onClick={logoutHandler}>
+                <NavDropdown.Item href="/profile" className="text-white">
+                  My Profile
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  onClick={logoutHandler}
+                  className="text-white"
+                >
                   Logout
                 </NavDropdown.Item>
                 <NavDropdown.Divider />

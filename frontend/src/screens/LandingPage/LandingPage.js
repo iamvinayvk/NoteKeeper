@@ -18,25 +18,31 @@ const LandingPage = () => {
     }
   }, [navigate, userInfo]);
   return (
-    <div className="main">
+    <div className="main bg-dark">
       <Container>
         <Row>
           <div className="intro-text">
             <div>
-              <h1 className="title">Welcome to Note Keeper</h1>
-              <p className="subtitle">One Safe place for all your notes.</p>
+              <h1 className="title text-white">Welcome to Note Keeper</h1>
+              <p className="subtitle text-white">
+                One Safe place for all your notes.
+              </p>
             </div>
             <div className="buttonContainer">
               <Link to="/login">
-                <Button size="lg" className="landingbutton" variant="info">
+                <Button
+                  size="lg"
+                  className="landingbutton d-flex justify-content-center align-items-center"
+                  variant="outline-dark"
+                >
                   Login
                 </Button>
               </Link>
               <Link to="/register">
                 <Button
                   size="lg"
-                  className="landingbutton"
-                  variant="outline-info"
+                  className="landingbutton d-flex justify-content-center align-items-center"
+                  variant="outline-dark"
                 >
                   Sign Up
                 </Button>

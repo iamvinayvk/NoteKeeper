@@ -9,6 +9,11 @@
 .heading {
   font-size: 60px;
   padding: 5px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-align: center;
 }
 
 @media only screen and (max-width: 600px) {
@@ -16,5 +21,7 @@
     font-size: 30px;
     display: flex;
     justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 }

@@ -52,7 +52,7 @@ const MyNotes = ({ search }) => {
         <Button
           style={{ marginLeft: 10, marginBottom: 6 }}
           size="lg"
-          variant="info"
+          variant="outline-dark"
         >
           Create New Note
         </Button>
@@ -71,7 +71,7 @@ const MyNotes = ({ search }) => {
         .map((note) => (
           <Accordion key={note._id}>
             <Accordion.Item eventKey="0">
-              <Card style={{ margin: 10 }}>
+              <Card className="text-white bg-dark" style={{ margin: 10 }}>
                 <Card.Header style={{ display: "flex" }}>
                   <span
                     style={{
@@ -80,19 +80,22 @@ const MyNotes = ({ search }) => {
                       flex: 1,
                       cursor: "pointer",
                       alignSelf: "center",
-                      fontSize: 18,
+                      fontSize: 25,
                     }}
                   >
-                    <Accordion.Header className="mx-4">
+                    <Accordion.Header className="mx-4 bg-dark">
                       {note.title}
                     </Accordion.Header>
                   </span>
                   <div>
-                    <Button variant="info" href={`/note/${note._id}`}>
+                    <Button
+                      variant="outline-primary"
+                      href={`/note/${note._id}`}
+                    >
                       Edit
                     </Button>
                     <Button
-                      variant="danger"
+                      variant="outline-danger"
                       className="mx-2"
                       onClick={() => deleteHandler(note._id)}
                     >
@@ -104,7 +107,9 @@ const MyNotes = ({ search }) => {
                 <Accordion.Body>
                   <Card.Body>
                     <h4>
-                      <Badge variant="info">Category - {note.category}</Badge>
+                      <Badge className="bg-info">
+                        Category - {note.category}
+                      </Badge>
                     </h4>
                     <blockquote className="blockquote mb-0">
                       <p>

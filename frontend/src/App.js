@@ -16,7 +16,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header setSearch={setSearch} />
-      <main>
+      <main className="App">
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/mynotes" element={<MyNotes search={search} />} />

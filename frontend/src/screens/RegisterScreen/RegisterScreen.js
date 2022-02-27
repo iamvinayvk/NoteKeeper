@@ -14,15 +14,14 @@ const RegisterScreen = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState(
-    "#Problem - Sometimes Pic Default value is being uplaoded in the Database instead of the uploaded value due to the extra time taken by cloudinary the submitHandler is making is the POST request before the postDetails function has completed its fetch operation"
-  );
+  const [message, setMessage] = useState();
 
   const [confirmPassword, setConfirmPassword] = useState("");
   const [pic, setPic] = useState(
     "https://as1.ftcdn.net/v2/jpg/03/46/83/96/1000_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
   );
   const [picMessage, setPicMessage] = useState("");
+  const [picLoading, setPicLoading] = useState(false);
 
   const dispatch = useDispatch();
   const userRegister = useSelector((state) => state.userRegister);
@@ -36,13 +35,11 @@ const RegisterScreen = () => {
     }
   }, [navigate, userInfo]);
   const postDetails = (pics) => {
-    if (
-      pics ===
-      "https://as1.ftcdn.net/v2/jpg/03/46/83/96/1000_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
-    ) {
+    setPicLoading(true);
+    if (!pics) {
       return setPicMessage("Please Upload Picture");
     }
-    setPicMessage(null);
+    setPicMessage("Photo is Uploading Wait ....");
     if (
       pics.type === "image/jpeg" ||
       pics.type === "image/png" ||
@@ -60,6 +57,7 @@ const RegisterScreen = () => {
         .then((data) => {
           console.log(data);
           setPic(data.url.toString());
+          setPicMessage("Photo Uploaded now you can Submit.");
         })
         .catch((error) => {
           console.log(error);
@@ -67,6 +65,8 @@ const RegisterScreen = () => {
     } else {
       return setPicMessage("Please Choose Correct Format!");
     }
+
+    setPicLoading(false);
   };
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -80,8 +80,16 @@ const RegisterScreen = () => {
   return (
     <MainScreen title="REGISTER">
       <div className="loginConatiner">
-        {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
-        {message && <ErrorMessage variant="danger">{message}</ErrorMessage>}
+        {error && (
+          <ErrorMessage variant="danger" className="text-white">
+            {error}
+          </ErrorMessage>
+        )}
+        {message && (
+          <ErrorMessage variant="danger" className="text-white">
+            {message}
+          </ErrorMessage>
+        )}
         {loading && <Loading />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="name">
@@ -121,8 +129,9 @@ const RegisterScreen = () => {
             />
           </Form.Group>
           {picMessage && (
-            <ErrorMessage variant="danger">{picMessage}</ErrorMessage>
+            <ErrorMessage variant="success">{picMessage}</ErrorMessage>
           )}
+
           <Form.Group controlId="pic">
             <Form.Label>Profile Picture</Form.Label>
             <Form.Control
@@ -133,7 +142,13 @@ const RegisterScreen = () => {
               //   custom
             />
           </Form.Group>
-          <Button variant="info" type="submit" size="lg" className="my-2">
+          <Button
+            style={{ marginLeft: 10, marginBottom: 6 }}
+            size="lg"
+            variant="outline-dark"
+            type="submit"
+            className="my-2"
+          >
             Register
           </Button>
         </Form>

@@ -15,6 +15,7 @@ const ProfileScreen = ({ navigate }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [picMessage, setPicMessage] = useState();
+  const [picLoading, setPicLoading] = useState(false);
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const userUpdate = useSelector((state) => state.userUpdate);
@@ -30,13 +31,12 @@ const ProfileScreen = ({ navigate }) => {
     }
   }, [navigate, userInfo]);
   const postDetails = (pics) => {
-    if (
-      pics ===
-      "https://as1.ftcdn.net/v2/jpg/03/46/83/96/1000_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
-    ) {
+    console.log(picLoading);
+    if (!pics) {
       return setPicMessage("Please Upload Picture");
     }
-    setPicMessage(null);
+    setPicMessage("Photo is Uploading Wait ....");
+
     if (
       pics.type === "image/jpeg" ||
       pics.type === "image/png" ||
@@ -54,6 +54,7 @@ const ProfileScreen = ({ navigate }) => {
         .then((data) => {
           console.log(data);
           setPic(data.url.toString());
+          setPicMessage("Photo Uploaded now you can Submit.");
         })
         .catch((error) => {
           console.log(error);
@@ -61,16 +62,19 @@ const ProfileScreen = ({ navigate }) => {
     } else {
       return setPicMessage("Please Choose Correct Format!");
     }
+    console.log(picLoading);
+    setPicLoading(false);
   };
   const submitHandler = (e) => {
     e.preventDefault();
     if (password === confirmPassword)
       dispatch(updateProfile({ name, email, password, pic }));
   };
+  // console.log(picLoading);
   return (
     <MainScreen title="EDIT PROFILE">
       <div>
-        <Row className="profileConatiner">
+        <Row className="profileConatiner d-flex justify-content-stretch align-items-center">
           <Col md={6}>
             <Form onSubmit={submitHandler}>
               {loading && <Loading />}
@@ -117,7 +121,7 @@ const ProfileScreen = ({ navigate }) => {
                 ></Form.Control>
               </Form.Group>{" "}
               {picMessage && (
-                <ErrorMessage variant="danger">{picMessage}</ErrorMessage>
+                <ErrorMessage variant="success">{picMessage}</ErrorMessage>
               )}
               <Form.Group controlId="pic">
                 <Form.Label>Change Profile Picture</Form.Label>
@@ -129,7 +133,13 @@ const ProfileScreen = ({ navigate }) => {
                   custom
                 />
               </Form.Group>
-              <Button type="submit" varient="info">
+              <Button
+                type="submit"
+                style={{ marginLeft: 10, marginBottom: 6 }}
+                size="lg"
+                variant="outline-dark"
+                className="my-2"
+              >
                 Update
               </Button>
             </Form>
