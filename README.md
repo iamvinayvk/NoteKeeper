@@ -16,9 +16,9 @@
 
 > One Safe place for all your notes
 
-### 🏠 [Homepage](https://notekeeper-web.herokuapp.com/)
+### 🏠 [Homepage](https://notekeeper-production.up.railway.app/)
 
-### ✨ [Demo](https://notekeeper-web.herokuapp.com/)
+### ✨ [Demo](https://notekeeper-production.up.railway.app/)
 
 ## Install
 
