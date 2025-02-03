@@ -24,14 +24,14 @@ const Header = ({ setSearch }) => {
     navigate("/");
   };
   return (
-    <Navbar expand="lg" variant="dark" bg="dark">
+    <Navbar expand="lg" variant="dark" bg="dark" fixed="top">
       <Container>
         <Navbar.Brand>
           <Link to="/">
             <img
               style={{
-                width: 150,
-                height: 150,
+                width: 80,
+                height: 80,
               }}
               src={logo}
               alt="logo"
