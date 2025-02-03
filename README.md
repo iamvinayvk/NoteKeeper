@@ -16,9 +16,9 @@
 
 > One Safe place for all your notes
 
-### 🏠 [Homepage](https://notekeeper-production.up.railway.app/)
+### 🏠 [Homepage](https://notekeeper-cns8.onrender.com/)
 
-### ✨ [Demo](https://notekeeper-production.up.railway.app/)
+### ✨ [Demo](https://notekeeper-cns8.onrender.com/)
 
 ## Install
 
